@@ -17,14 +17,14 @@
         } 
         
         public function insertarcliente($nombre,$apellido,$id,$tel,$loc){
-            echo 'jajajajajjajajajajjajajajajajajajajajajajajjajajajajjaj';
+            
             $result = $this->modelo->insertarcliente($nombre,$apellido,$id,$tel,$loc);
             
             if($result){
                 echo '<script type="text/javascript">
                       alert("Insercion exitosa");
                     </script>';  
-                header('location: usuario.php');  
+                header('location: facturar.php');  
                 
             }else{
                        
@@ -45,11 +45,7 @@
         $id = $_POST['identificacion'];
         $tel=$_POST['telefono'];
         $loc=$_POST['localidad'];
-        echo $nombre.'hola mundo hp';
-        echo $apellido;
-        echo $id;
-        echo $tel;
-        echo $loc;
+      
         $cliente->insertarcliente($nombre,$apellido,$id,$tel,$loc);        
         
     }else{

@@ -1,6 +1,7 @@
 <?php
     require_once '../modelo/loginmodel.php';
     require_once '../vista/loginvista.php';
+    require_once '../vista/loginvista.php';
     
     class Login{
         
@@ -34,7 +35,21 @@
                 header('location: login.php');
                 
             }                        
-        }                
+        }
+        
+        public function insertarUsuario($user){
+            
+            $resultados=  $this->modelo->insertarUsuario($user);
+            
+            if ($resultados){
+                
+                foreach ($resultados as $fila){
+                    $usuario=$fila['nombre_usuario'];
+                }
+                $this->vista->mostrarusuario($usuario);
+            }
+               
+        }
     }
     
      
@@ -42,7 +57,7 @@
    
     if(isset($_POST['usuario'])){               
         $login->loguiar($_POST['usuario'], $_POST['password']);     
-
+        $login->insertarUsuario($_POST['usuario']);
     }else{
          
         $login->mostrar();               

@@ -1,49 +1,63 @@
 <?php
-    require_once '../modelo/conexion.php';
+    require_once '../modelo/facturarmodelo.php';
     require_once '../vista/facturarvista.php';
-    require_once '../vista/loginvista.php';
+    
    
     class Facturar{
         public $modelo;
         public $vista;
         
         public function __construct() {
-            $this->modelo = new Conexion();
+            $this->modelo = new FacturarModel();
             $this->vista = new FacturarVista(); 
-            $this->regreso = new LoginVista();   
+              
         }
         
         public function mostrarVistaFacturar(){
             $this->vista->mostrarFactura();      
         }
             
-         public function mostrarLogin(){
-            $this->regreso->mostrarlogin();      
-         }    
+        
+         public function buscarproducto($producto,$cantidad){
+            $query=$this->modelo->buscarproducto($producto,$cantidad);
+            //var_dump($query);                     
+             
+            if($query){
+                 $this->vista->listaproductos($query,$cantidad);
+            }
+                 
+            else {
+                     echo '<script type="text/javascript">
+                      alert("no hay datos");
+                    </script>';
+                     header('location: facturar.php');
+            }
+                 
+             }
+         }
+    
+    
+    $factura = new Facturar();    
+    //$factura->mostrarVistaFacturar();
+    
+    if (isset($_POST['producto'])|isset($_POST['tabla'])){
+        $cantidad=$_POST['cantidad'];
+        $producto=$_POST['producto'];
+        if (isset($_POST['tabla'])){
+            
+        }else{
+           
+        
+        }
+        
+        $factura->buscarproducto($producto,$cantidad);
     }
-    
-    $login = new Facturar();    
-    $login->mostrarVistaFacturar();
-    
-//        $usuario = $_POST["usuario"];   
-//        $password = $_POST["password"];
-//         
-//         $db_host = 'localhost';
-//         $db_user = 'root';
-//         $db_pass = 'oscar';
-//         $db_name = "facturacion";
-//         
-//         $init= mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-//          
-//        $result=mysqli_query($init,"SELECT * FROM usuario WHERE id_usuario = '$usuario' AND contrasena_usuario='$password'")or die(mysql_error());
-//        if($row= mysqli_fetch_array($result)){
-//            $login = new Facturar();    
-//            $login->mostrarVistaFacturar();
-//        }
-//        else{
-//           echo '<script type="text/javascript">
-//                     alert("Usuario incorrecto");
-//                     location.href = "login.php";
-//                   </script>';  
-//           }
-        ?>
+    if (isset($_POST['tabla'])){
+        $tabla=$_POST['tabla'];
+        echo $tabla;
+    }
+    else {
+        //$factura->mostrarVistaFacturar();
+    }
+    $factura->mostrarVistaFacturar();
+?>

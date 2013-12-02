@@ -22,14 +22,11 @@
             
             foreach($datos as $fila){
                 
-                $aux = '<option value="'.$fila['id_rool'].'">'.$fila['nombre_rool'].'</option>';
-                
+                $aux = '<option value="'.$fila['id_rool'].'">'.$fila['nombre_rool'].'</option>';                
                 $combo .=$aux;
-            }
-            
+            }            
             $this->entrar = str_ireplace('{opciones}', $combo, $this->entrar);                      
         }
-
                 
         public function mostrarUsuario(){
 
